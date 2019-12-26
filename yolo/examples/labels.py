@@ -13,17 +13,19 @@ sys.path.insert(0, '.')
 import brambox.boxes as bbb
 
 DEBUG = True        # Enable some debug prints with extra information
-ROOT = '/data2/yichaoxiong/data/VOCdevkit'       # Root folder where the VOCdevkit is located
+ROOT = '../../helmet/data/'       # Root folder where the VOCdevkit is located
 
 TRAINSET = [
-    ('2012', 'train'),
-    ('2012', 'val'),
-    ('2007', 'train'),
-    ('2007', 'val'),
+    #('2012', 'train'),
+    #('2012', 'val'),
+    #('2007', 'train'),
+    #('2007', 'val'),
+    ('hardhat_uniform', 'train')
     ]
 
 TESTSET = [
-    ('2007', 'test'),
+    #('2007', 'test'),
+    ('hardhat_uniform', 'test'),
     ]
 
 def identify(xml_file):
@@ -38,9 +40,9 @@ if __name__ == '__main__':
     print('Getting training annotation filenames')
     train = []
     for (year, img_set) in TRAINSET:
-        with open(f'{ROOT}/VOC{year}/ImageSets/Main/{img_set}.txt', 'r') as f:
+        with open(f'{ROOT}/{year}/ImageSets/Main/{img_set}.txt', 'r') as f:
             ids = f.read().strip().split()
-        train += [f'{ROOT}/VOC{year}/Annotations/{xml_id}.xml' for xml_id in ids]
+        train += [f'{ROOT}/{year}/Annotations/{xml_id}.xml' for xml_id in ids]
 
     if DEBUG:
         print(f'\t{len(train)} xml files')
@@ -61,9 +63,9 @@ if __name__ == '__main__':
     print('Getting testing annotation filenames')
     test = []
     for (year, img_set) in TESTSET:
-        with open(f'{ROOT}/VOC{year}/ImageSets/Main/{img_set}.txt', 'r') as f:
+        with open(f'{ROOT}/{year}/ImageSets/Main/{img_set}.txt', 'r') as f:
             ids = f.read().strip().split()
-        test += [f'{ROOT}/VOC{year}/Annotations/{xml_id}.xml' for xml_id in ids]
+        test += [f'{ROOT}/{year}/Annotations/{xml_id}.xml' for xml_id in ids]
 
     if DEBUG:
         print(f'\t{len(test)} xml files')
