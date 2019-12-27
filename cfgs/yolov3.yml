@@ -3,15 +3,16 @@ output_version: "baseline"
 backup_name: "weights"
 log_name: "logs"
 
-labels: ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+#labels: ["aeroplane", "bicycle", "bird", "boat", "bottle", "bus", "car", "cat", "chair", "cow", "diningtable", "dog", "horse", "motorbike", "person", "pottedplant", "sheep", "sofa", "train", "tvmonitor"]
+labels: ["hard_hat", "no_hat", "other_hat", "work_uniform", "non_uniform"]
 
-data_root_dir: "../../helmet/data/onedet_cache"
+data_root_dir: "../code/helmet/data/onedet_cache"
 
 train:
     dataset: "train"
-    stdout: False
-    gpus: "6"
-    nworkers: 16
+    stdout: True
+    gpus: "1"
+    nworkers: 8 
     pin_mem: True
 
     momentum: 0.9
@@ -30,20 +31,20 @@ train:
     backup_rates: [10000]
 
     input_shape: [608, 608]
-    batch_size: 64
-    mini_batch_size: 16
+    batch_size: 16
+    mini_batch_size: 8
     weights: "weights/darknet53.conv.74"
 
 test:
     dataset: "test"
     stdout: True
-    gpus: "3"
+    gpus: "2"
     nworkers: 8
     pin_mem: True
 
     input_shape: [544, 544]
-    batch_size: 8
-    weights: "weights/yolov3_50200.dw"
+    batch_size: 1
+    weights: "weights/yolov3_hardhat.dw"
 
     conf_thresh: 0.005
     nms_thresh: 0.45
@@ -51,7 +52,7 @@ test:
     results: "results"
 
 speed:
-    gpus: "7"
+    gpus: "3"
     batch_size: 1
     max_iters: 200
     input_shape: [544, 544]

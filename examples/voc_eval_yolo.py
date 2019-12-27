@@ -131,7 +131,7 @@ def voc_eval(
         bbox = np.array([x["bbox"] for x in R])
         # if no difficult, all are 0.
         difficult = np.array([x["difficult"] for x in R]).astype(np.bool)
-        # len(R) number of gt_bboxes for this class��det: whether is detected, initialized to False��
+        # len(R) number of gt_bboxes for this class_det: whether is detected, initialized to False
         det = [False] * len(R)
         # add number of non-difficult gt bbox
         npos = npos + sum(~difficult)
@@ -211,7 +211,12 @@ if __name__ == "__main__":
     import argparse
     classes = (
         "__background__",  # always index 0
-        "aeroplane",
+        "hard_hat",
+        "no_hat",
+        "other_hat",
+        "work_uniform",
+        "non_uniform",)
+    '''"aeroplane",
         "bicycle",
         "bird",
         "boat",
@@ -230,15 +235,15 @@ if __name__ == "__main__":
         "sheep",
         "sofa",
         "train",
-        "tvmonitor",
-    )
+        "tvmonitor",'''
+    
     parser = argparse.ArgumentParser(description="evaluation with gt annotation and detection results")
     parser.add_argument("result_dir", help="result_dir", default="")
     parser.add_argument("--mode", default="voc", help="pr mode: voc or area")
     args = parser.parse_args()
   
-    cached_annopath = osp.join(cur_dir, "../../../data/VOCdevkit/onedet_cache/test.pkl")
-    cachedir = osp.join(cur_dir, "../../../data/VOCdevkit/annotations_cache")
+    cached_annopath = osp.join(cur_dir, "../../helmet/data/onedet_cache/test.pkl")
+    cachedir = osp.join(cur_dir, "../../helmet/data/hardhat_uniform/annotations_cache")
 
     result_dir = args.result_dir
     output_dir = osp.join(result_dir, "pr_curve")
